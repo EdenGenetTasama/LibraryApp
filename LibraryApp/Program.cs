@@ -42,7 +42,7 @@ Book[] arrayOfBookOb = new Book[] { new Book("Harry Potter", "JK Rolling", rando
     new Book("Harry Potter", "JK Rolling", randomPages.Next(1,500)),
     new Book("Spaider-Mam", "Marvel",randomPages.Next(1,500)),
     new Book("Bond", "Movie", randomPages.Next(1,500)),
-    new Book("Black Panther", "MARVEL",randomPages.Next(1,500)),
+    new Book("Black PantherY", "MARVEL",randomPages.Next(1,500)),
     new Book("Iron", "MARVEL", randomPages.Next(1,500)),};
 
 
@@ -63,8 +63,8 @@ var over200Pages = (from item in arrayOfBookOb
 
 //6:
 var over4Length = (from name in arrayOfBookOb
-                  where name.Writter.Length > 4
-                  select name).ToList();
+                   where name.Writter.Length > 4
+                   select name).ToList();
 //foreach (var over4 in arrayOfBookOb)
 //{
 //    Console.WriteLine(over4.Name);
@@ -74,6 +74,55 @@ var over4Length = (from name in arrayOfBookOb
 
 //7:
 
-var shorterThen150Pages = (from bookShort150pages in arrayOfBookOb
-                          where arrayOfBookOb[0].NumbersOfPages <150
-                          select bookShort150pages).ToList().Find(item=>item);
+var shorterThen150Pages = (from book in arrayOfBookOb
+                           where book.NumbersOfPages < 150
+                           select book).ToList();
+
+Book bookObj = shorterThen150Pages.Find(item => item.NumbersOfPages < 150);
+//Console.WriteLine($"{ bookObj.Name} , {bookObj.NumbersOfPages}");
+
+//8:
+
+var endedWithY = (from nameObj in arrayOfBookOb
+                  where nameObj.Name[nameObj.Name.Length - 1] == 'Y'
+                  select nameObj).ToList();
+
+//foreach (var item in endedWithY)
+//{
+//    Console.WriteLine(item.Name);
+//}
+
+//9:
+Book[] arrayOfBookObTwo = new Book[] { new Book("Harry Potter", "JK Rolling", randomPages.Next(1,500)),
+    new Book("Harry Potter", "JK Rolling", randomPages.Next(1,500)),
+    new Book("Spaider-Mam", "Movie", randomPages.Next(1,500)),
+    new Book("Spaider-Mam", "Movie", randomPages.Next(1,500)),
+    new Book("Black PantherY", "MARVEL",randomPages.Next(1,500)),
+    new Book("Spaider-Mam", "Movie", randomPages.Next(1,500)) };
+
+//10:
+
+var groupByWritterPrintAllInfo = from book in arrayOfBookObTwo
+                     group book by book.Writter;
+foreach (var gropWritter in groupByWritterPrintAllInfo)
+{
+    Console.WriteLine($"group Name:{gropWritter.Key}");
+    foreach (Book i in gropWritter)
+    {
+        Console.WriteLine($"{i.Name} , {i.NumbersOfPages} , {i.Writter}");
+    }
+}
+
+
+//11:
+
+var groupByWritter = from book in arrayOfBookObTwo
+                     group book by book.Writter;
+foreach (var gropWritter in groupByWritter)
+{
+    Console.WriteLine($"group Name:{gropWritter.Key}");
+    foreach (Book i in gropWritter)
+    {
+        Console.WriteLine(i.Name);
+    }
+}
